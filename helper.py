@@ -1,6 +1,6 @@
 import os
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from ddpg_lib import * 
 import ipdb as pdb
 import matplotlib.pyplot as plt
@@ -217,8 +217,9 @@ class DDPGAgent(object):
                     y_i.append(r_batch[k] + self.critic.gamma * target_q[k])
 
             # Update the critic given the targets
+            # print(np.shape(np.asarray(y_i, dtype="object")))
             predicted_q_value, _ = self.critic.train(
-                s_batch, a_batch, np.reshape(y_i, (self.minibatch_size, 1)))
+                s_batch, a_batch, np.asarray(y_i, dtype="object").reshape(-1,1))
 
             if isUpdateActor:
                 # Update the actor policy using the sampled gradient

@@ -1,7 +1,7 @@
 import numpy as np
 from helper import *
 import ipdb as pdb
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 class MecTerm(object):
     """
